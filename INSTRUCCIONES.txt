@@ -1,0 +1,18 @@
+RED DE ALERTAS COMPARTIDAS CON TXT
+1. Contrata o utiliza un alojamiento web con HTTPS, PHP 8.1+ y escritura de archivos. NO funciona en GitHub Pages: GitHub Pages no ejecuta PHP.
+2. En api.php cambia CLAVE_GRUPO por una clave larga y difícil de adivinar. Todos los celulares usan ese mismo código.
+3. Sube index.html, api.php y la carpeta private (incluido su .htaccess) al servidor. Necesitas un hosting Apache compatible con .htaccess.
+4. Asegúrate de que PHP pueda escribir en la carpeta private. El archivo private/alertas.txt se creará automáticamente.
+5. Visita https://tu-dominio/.../index.html desde todos los celulares. Introduce el código y pulsa Conectar red.
+6. Para generar alertas, pulsa Activar detector y concede acceso a sensores. Los demás celulares conectados verán las alertas normalmente en unos 2 segundos con página abierta.
+7. Puedes usar Enviar prueba para probar sin sacudir el teléfono.
+8. El archivo private/alertas.txt almacena una línea JSON por alerta, legible como TXT.
+
+SEGURIDAD Y LIMITACIONES
+- El código de grupo es una clave compartida simple, no autenticación individual. Para uso público se requiere un sistema más robusto, control de acceso, límites de solicitudes y política de retención.
+- El archivo contiene ubicaciones sensibles: private/.htaccess bloquea el acceso directo en Apache. En Nginx configura una regla equivalente o almacena private fuera de la raíz pública.
+- La ubicación requiere permiso del usuario. Si se deniega, se registra sin coordenadas.
+- Las alertas se consultan mediante polling cada 2 segundos, no WebSocket ni notificaciones push. Cuando el navegador está suspendido o cerrado no se garantiza entrega ni sonido.
+- Sin conexión a Internet no se comparten alertas.
+- La frecuencia de consultas debe adaptarse al número de usuarios; un archivo creciente requiere rotación/archivado y una base de datos sería mejor para producción.
+- Este es un prototipo, no un sistema certificado para emergencias.
