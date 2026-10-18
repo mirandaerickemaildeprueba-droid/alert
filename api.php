@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']!=='POST')answer(405,['ok'=>false,'error'=>'Solo PO
 $raw=file_get_contents('php://input');if(strlen($raw)>2048)answer(413,['ok'=>false,'error'=>'Solicitud demasiado grande']);
 $r=json_decode($raw,true);if(!is_array($r))answer(400,['ok'=>false,'error'=>'JSON inválido']);
 // Cambia esta clave antes de publicar; usa una clave larga y no pública.
-const CLAVE_GRUPO='CAMBIAR-POR-UNA-CLAVE-LARGA-ALEATORIA';
+const CLAVE_GRUPO='Rc91026';
 if(!is_string($r['codigo']??null)||!hash_equals(CLAVE_GRUPO,$r['codigo']))answer(403,['ok'=>false,'error'=>'Código incorrecto']);
 $action=$r['accion']??'';
 if($action==='verificar')answer(200,['ok'=>true]);
